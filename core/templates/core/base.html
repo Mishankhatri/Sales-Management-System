@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Sales Management System</title>
+  </head>
+  <body class="font-body bg-gray-200 overflow-x-hidden">
+    <nav
+      class="fixed flex w-full h-12 top-0 items-center justify-between bg-primary2 text-white z-10"
+    >
+      <a href="#" class="ml-4 font-semibold text-lg">Sales Mangement System</a>
+      <ul class="list-none flex justify-around items-center w-3/6 relative">
+        <li class=""><a href="{% url 'products' %}">Products</a></li>
+        {% if user.is_authenticated %}
+        <li class=""><a  href="{% url 'createinvoice' %}" >Create Invoice</a></li>
+        <li class=""><a  href="{% url 'dashboard' %}" >Dashboard</a></li>
+        {% endif%}
+        {% if user.is_authenticated %}
+        <li class="text-secondary-600"><a  href="{% url 'logout'%}">Logout</a></li>
+        {% else %}
+        <li class=""><a  href="{% url 'login'%}">Login</a></li> 
+        {% endif%}
+      </ul>
+    </nav>
+    <main class="relative top-12">
+        {% block content %}
+        <!-- for childs -->
+        {% endblock content %}
+    </main>
+  </body>
+  <script>
+  </script>
+</html>

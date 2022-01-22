@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.card {
+  @apply bg-white rounded-2xl overflow-hidden shadow-sm relative;
+}
+.badge {
+  @apply bg-secondary-100 text-secondary-200 text-xs font-bold uppercase rounded-full p-2 absolute top-0 ml-2 mt-2;
+}
+.btn {
+  @apply rounded-full py-2 px-4 uppercase text-xs font-bold cursor-pointer tracking-wider text-white bg-secondary-500 hover:bg-secondary-400;
+}
+.file-ip {
+  @apply mt-1 inline-block w-full text-sm text-slate-500
+  file:py-2 file:px-4
+  file:rounded-full file:border-0
+  file:text-xs file:font-bold file:tracking-wide
+  file:bg-secondary-500 file:text-white
+  hover:file:bg-secondary-400
+}
+
+.text-field{
+  @apply mt-1 block w-full px-4 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+  focus:outline-none focus:border-secondary-400 focus:ring-1 focus:ring-sky-500
+  disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+  invalid:border-red-500 invalid:text-red-600
+  focus:invalid:border-red-500 focus:invalid:ring-red-500
+}
+
+.helptext{
+  @apply hidden
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #ac0c0c;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(160, 22, 22);
+} 
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50px;
+  width: 100%;
+  height: 5px;
+  background: #064663;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #064663;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: #064663;
+  cursor: pointer;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+.grids{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit,minmax(192px,1fr));
+}
