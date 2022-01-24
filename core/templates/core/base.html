@@ -46,16 +46,20 @@
   </body>
   <script>
     const showChange =(e)=>{
-      let price = document.querySelector('.currPrice')
+      let span = document.querySelector('.currSpan')
       let alert = document.querySelector('.alert')
-      if (price){
-        price.innerHTML = `${e.target.value}`
+      if (span){
+        span.innerHTML = `${e.target.value}`
       }
-      alert.innerText = ""
+      if(alert) alert.innerText = ""
       
       if ( e.target.value<=0){
-        alert.innerText = "Select positive value."
+        alert.innerText = "Invalid value."
       }
+    }
+    let sn = document.querySelectorAll('.sn')
+    if (sn){
+      sn.forEach((elem,id)=>elem.innerHTML=`${id+1}`)
     }
   </script>
 </html>

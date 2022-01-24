@@ -1,11 +1,9 @@
 
-from distutils.command.upload import upload
 from django.shortcuts import redirect, render
-from django.template import RequestContext
 from .models import Product
 from django.db import connection
 from django.contrib import messages
-from SalesManagementSystem.settings import MEDIA_ROOT,MEDIA_URL
+from SalesManagementSystem.settings import MEDIA_ROOT
 import os
 from PIL import Image
 
@@ -29,7 +27,7 @@ def products(request):
         
     with connection.cursor() as cursor:
         if q is not None:
-            cursor.execute('SELECT * FROM core_Product WHERE unit_price<%s and unit_price>0',[str(q)])
+            cursor.execute('SELECT * FROM core_Product WHERE unit_price<=%s and unit_price>0',[str(q)])
         else:
             cursor.execute('SELECT * FROM core_Product WHERE unit_price>0')
         products = dictfetchall(cursor)
@@ -38,6 +36,23 @@ def products(request):
         'q':q
     }
     return render(request,"core/products.html",context)
+
+def productslistView(request):
+    q = request.GET.get('search',None)
+    products={}  
+    with connection.cursor() as cursor:
+        if q is not None:
+            search = "%"+q+"%"
+            cursor.execute("""SELECT * FROM core_Product WHERE lower(product_name) LIKE %s and product_name!="deleted product" """,[str(search)])
+            print('here')
+        else:
+            cursor.execute('SELECT * FROM core_Product WHERE unit_price>0')
+        products = dictfetchall(cursor)
+    context={
+        'products':products,
+        'q':q
+    }
+    return render(request,"core/productslist.html",context)
 
 
             
