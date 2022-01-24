@@ -3,189 +3,51 @@
 {% load static %}
 <header class="text-center pt-6 relative left-28">
   <h1 class="text-3xl font-bold">List of Products</h1>
-  <br />
-  <h4 class="font-semibold ">Category</h4>
-  <h4 class="">Art & Craft</h4>
 </header>
 <br />
-<aside
-  class="fixed top-48 left-5 w-2/12 min-h-fit flex flex-col bg-gray-300 ml-4 items-center justify-evenly p-8 rounded-xl"
->
+<aside class="fixed top-48 left-5 w-2/12 min-h-fit flex flex-col bg-gray-300 ml-4 items-center justify-evenly p-8 rounded-xl">
   <div class="pb-5">
     <form class='filter-form'>
-      <label for="filter" class="form-label text-center "
-        ><h3>Filter By Price</h3></label
-      >
-      <!-- <span>Rs.5</span> -->
+      <label for="filter" class="text-center font-bold text-xl"><h3>Filter By Price</h3></label>
+      {% if q is not None and q != '5000' %}
+      <h3 class="text-center h-8 my-3">Products less than Rs.<span class="currPrice font-bold">{{q}}</span></h3>
+      {% endif %}
+      <span class="alert text-secondary-100 text-center"></span>
       <input
-        class="slider"
+        class="slider "
         type="range"
         name="filter"
         id=""
         min="0"
-        max="10000"
-        value="200"
-        step="500"
+        max="5000"
+        value="5000"
+        step="100"
+        onchange="showChange(event)"
       />
-      <!-- <span>Rs.10000</span> -->
-    </div>
-    <button type = "submit" class="filter-btn btn  mb-4">Filter</button>
-  </form>
-  <div>
-    <h3 class="font-bold mb-2">Browse By Category</h3>
-    <ul class="list-none flex flex-col justify-evenly items-center">
-      <li><a href="">Art & Craft</a></li>
-      <li><a href="">Artist Corner</a></li>
-      <li><a href="">Clips</a></li>
-      <li><a href="">Colors</a></li>
-      <li><a href="">Craft</a></li>
-      <li><a href="">Folders</a></li>
-      <li><a href="">Inks</a></li>
-      <li><a href="">Markers</a></li>
-      <li><a href="">Paper</a></li>
-      <li><a href="">Pencils</a></li>
-      <li><a href="">Pens</a></li>
-      <li><a href="">Refills</a></li>
-      <li><a href="">Tapes</a></li>
-    </ul>
+      <div class="flex justify-evenly items-center mt-4">
+        <button type = "submit" value="submit" class="filter-btn btn  mb-4">Filter</button>
+        <button  value="reset" class="filter-btn btn  mb-4" onclick="document.querySelector('.slider').value=5000">Reset</button>
+      </div>
+    </form>
   </div>
+  <a  href="{% url 'createproduct' %}" class = "btn" >Add product</a>
 </aside>
 
 <section
-  class="grid md:grid-cols-4 sm:grid-cols-2 gap-4 absolute top-28 left-96 mt-7 h-auto w-8/12 p-5 overflow-hidden bg-gray-300 rounded-xl"
+  class="grid md:grid-cols-4 sm:grid-cols-2 gap-4 absolute top-28 left-96 mt-7 h-auto w-8/12 p-5 overflow-hidden bg-gray-300 rounded-xl "
 >
+  {% for product in products %}
   <div class="card hover:shadow-lg">
     <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
+      src="/media/{{ product.product_image }}"
       class="w-48 h-48 min-w-full"
     />
     <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
+      <span class="font-bold">{{ product.product_name }}</span>
+      <span class="block">Rs.{{ product.unit_price }}</span>
     </div>
   </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
-  <div class="card hover:shadow-lg">
-    <img
-      src="{% static 'img/57307-1009-3ww-l.webp' %}"
-      alt=""
-      class="w-48 h-48 min-w-full"
-    />
-    <div class="m-4">
-      <span class="font-bold">Paper Clips</span>
-      <span class="block">Rs.50</span>
-    </div>
-  </div>
+  {% endfor %}
 </section>
 
 {% endblock content %}

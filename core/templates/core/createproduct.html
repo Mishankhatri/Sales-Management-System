@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+<header class="text-center pt-6 relative ">
+  <h1 class="text-3xl font-bold">Create Product</h1>
+  <br />
+</header>
+<br />
+<section class="absolute top-16 ml-48 bg-gray-300 w-9/12 h-fit py-7 flex items-center justify-around rounded-xl">
+  <div>
+    <h2 class="font-bold text-2xl text-center">Add Products</h2>
+    <div class="m-4">
+      <form method="POST" enctype=multipart/form-data>
+        {% csrf_token %}
+        <fieldset>
+        <label for="product_name">Product name</label>
+        <input type="text" class="text-field" name="product_name" id="">
+        <label for="unit_price">Unit Price</label>
+        <input type="number" class="text-field" min="0" name="unit_price" id="">
+        <label for="product_image">Product Image</label>
+        <input type="file" class="file-ip" accept="image/*" name="product_image" id="">
+        </fieldset>
+        <button type="submit" class="btn mt-5">Add</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
