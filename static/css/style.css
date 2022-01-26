@@ -543,16 +543,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 3.5rem;
 }
 
+.left-28 {
+  left: 7rem;
+}
+
 .top-12 {
   top: 3rem;
 }
 
 .top-16 {
   top: 4rem;
-}
-
-.left-28 {
-  left: 7rem;
 }
 
 .top-48 {
@@ -633,16 +633,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1rem;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
 
 .mb-0 {
   margin-bottom: 0px;
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
 }
 
 .block {
@@ -878,6 +878,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(4 104 50 / var(--tw-bg-opacity));
 }
 
+.bg-secondary-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(6 70 99 / var(--tw-bg-opacity));
+}
+
 .bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
@@ -886,6 +891,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-secondary-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 69 69 / var(--tw-bg-opacity));
+}
+
+.bg-secondary-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 179 101 / var(--tw-bg-opacity));
 }
 
 .fill-current {
@@ -921,6 +936,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-7 {
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .px-6 {
@@ -1045,6 +1065,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-75 {
   opacity: 0.75;
+}
+
+.opacity-60 {
+  opacity: 0.6;
 }
 
 .filter {

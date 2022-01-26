@@ -143,3 +143,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login/'
+
+DEFAULT_PRODUCT_PICTURE = 'default_product.png'

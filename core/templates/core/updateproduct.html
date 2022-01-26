@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+<header class="text-center pt-6 relative ">
+  <h1 class="text-3xl font-bold">Update Product no.{{pk}}</h1>
+  <br />
+</header>
+<br />
+<section class="absolute top-28 ml-48 bg-gray-300 w-9/12 h-fit py-7 flex items-center justify-around rounded-xl ">
+  <div>
+    <h2 class="font-bold text-2xl text-center">Update Product</h2>
+    <div class="m-4">
+      {% for p in products  %}
+      <form method="POST" enctype=multipart/form-data>
+        {% csrf_token %}
+        <fieldset>
+        <label for="product_name">Product name</label>
+        <input type="text" class="text-field" name="product_name" id="" value="{{p.product_name}}" autofocus>
+        <label for="unit_price">Unit Price</label>
+        <input type="number" class="text-field" min="0" name="unit_price" id="" value="{{p.unit_price}}">
+        <label for="product_image">Product Image</label>
+        <input type="file" class="file-ip" accept="image/*" name="product_image" id="" value="{{p.product_image}}">
+        <a href="/media/{{p.product_image}}">Currently:{{p.product_image}}</a>
+        </fieldset>
+        <button type="submit" class="btn mt-5">Update</button>
+        <a class = "btn ml-2" href="{% url 'productslist' %}">Cancel</a>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
