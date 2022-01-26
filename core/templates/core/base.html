@@ -13,7 +13,7 @@
     <nav
       class="fixed flex w-full h-12 top-0 items-center justify-between bg-primary2 text-white z-10"
     >
-      <a href="#" class="ml-4 font-semibold text-lg">Sales Mangement System</a>
+      <a href="{% url 'products' %}" class="ml-4 font-semibold text-lg">Sales Mangement System</a>
       <ul class="list-none flex justify-around items-center w-3/6 relative">
         <li class=""><a href="{% url 'products' %}">Products</a></li>
         {% if user.is_authenticated %}
@@ -30,7 +30,7 @@
     {%if messages%}
       {% for message in messages %}
           {% if message.tags == 'success' %}
-              <div class="grid relative top-14 w-full place-items-center left-28 ">
+              <div class="grid relative top-14 w-full place-items-center">
                 <div class="p-2 bg-green-500 items-center text-indigo-100 leading-none rounded-full flex" role="alert">
                   <span class="flex rounded-full bg-secondary-700 uppercase px-2 py-1 text-xs font-bold mr-3">{{message.tags}}</span>
                   <span class="font-semibold mr-2 text-left flex-auto text-primary2">{{message}}</span>
