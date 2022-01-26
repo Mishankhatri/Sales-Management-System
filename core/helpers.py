@@ -24,6 +24,12 @@ def savefile(file,dir):
         img.save(path)
     return filename
 
+def deletefile(path):
+    if os.path.isfile(path):
+        os.remove(path)
+        print(f'file deleted from {path}')
+    else : print ( "File not found...")
+
 def control_datatype(stg):
         "returns integer from string if exists else returns string"
         clean = stg

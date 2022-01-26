@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+<header class="text-center pt-6 relative ">
+  <h1 class="text-3xl font-bold">Delete Product</h1>
+  <br />
+</header>
+<br />
+<section class="absolute top-16 ml-48 bg-gray-300 w-9/12 h-fit py-7 flex items-center justify-around rounded-xl">
+  <div>
+    <h2 class="font-bold text-2xl text-center">Confirm Deletion?</h2>
+    <div class="m-4">
+    {% for p in product %}
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset>
+      <h2>Do you want to delete the product : {{ p.product_name}} ?</h2>
+      <button type="submit" class="btn mt-5">Yes</button>
+      <a class = "btn" href="{% url 'productslist' %}"> Cancel</a>
+    </fieldset>
+    </form>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

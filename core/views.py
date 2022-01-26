@@ -1,9 +1,13 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
+import os
+from SalesManagementSystem.settings import MEDIA_ROOT
 from .models import Product
 from django.db import connection
 from django.contrib import messages
-from .helpers import dictfetchall,savefile,filterupdates
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from .helpers import deletefile, dictfetchall,savefile,filterupdates
 
 
 #views here.
@@ -44,6 +48,7 @@ def productslistView(request):
     }
     return render(request,"core/productslist.html",context)
 
+@login_required
 def createproduct(request):
     "create view for products."
     if request.method == 'POST':
@@ -56,6 +61,7 @@ def createproduct(request):
         messages.success(request, f'{ product_name } added.')
     return render(request,"core/createproduct.html")
 
+@login_required
 def updateproduct(request,pk):
     "update view for product for given pk"
     product={}
@@ -106,6 +112,36 @@ def updateproduct(request,pk):
         }
         return render(request,"core/updateproduct.html",context)    
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def deleteproduct(request,pk):
+    product= {}
+    with connection.cursor() as cursor:
+        cursor.execute('select * from core_product where id = %s',[int(pk)])
+        product = dictfetchall(cursor)
+    product_name = product[0].get('product_name')
+    
+    
+    if request.method == 'POST':
+        with connection.cursor() as cursor:
+            cursor.execute(' DELETE FROM core_product WHERE id = %s',[int(pk)])
+        product_image = product[0].get('product_image')
+        print(product_image)
+        path = os.path.join(MEDIA_ROOT,product_image)
+        print(path)
+        deletefile(path)
+        messages.success(request, f'{ product_name } Deleted.')
+        return redirect('products')
+        
+    if request.method == 'GET':
+        context= {
+            'product' : product
+        }
+        return render(request,"core/product_confirm_delete.html",context)    
+    
+    
+    
+    
+@login_required
 def createinvoice(request):
     return render(request,"core/createinvoice.html")
