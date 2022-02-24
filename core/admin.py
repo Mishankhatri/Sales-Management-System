@@ -7,7 +7,7 @@ class Admin(admin.ModelAdmin):
     
 @admin.register(Invoice)
 class Admin(admin.ModelAdmin):
-    list_display = ['invoice_number', 'customer_name', 'date_created','created_by', ]
+    list_display = ['invoice_number', 'customer_name', 'date_created','created_by', 'total']
 @admin.register(InvoiceItem)
 class Admin(admin.ModelAdmin):
     list_display = ['id','invoice', 'item','quantity','accumulated',]

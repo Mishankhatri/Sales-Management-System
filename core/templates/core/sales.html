@@ -1,0 +1,77 @@
+{% extends "core/base.html" %}
+{% block content %} 
+{% load static %}
+<section>
+    <aside class="fixed top-48 left-5 w-2/12 min-h-fit flex flex-col bg-gray-300 ml-4 items-center justify-evenly p-8 rounded-xl flex-wrap">
+        <div class="pb-5">
+          <form class='filter-form'>
+            <label for="filter" class="text-center font-bold text-xl"><h3>Search Customer:</h3></label>
+            {% if q is not None %}
+            <h3 class="text-center h-8 my-3">Searched Term:<span class="currSpan font-bold">{{q}}</span></h3>
+            {% endif %}
+            <input
+              class="search text-field"
+              type="text"
+              name="search"
+              onchange="showChange(event)"
+              autofocus
+            />
+            <div class="flex justify-evenly items-center mt-4">
+              <button type = "submit" value="submit" class=" btn">Search</button>
+              <button  value="reset" class=" btn">Reset</button>
+            </div>
+            </form>
+        </div>
+    </aside>
+    {% if invoices_dict %}
+    <h2 class="absolute grid place-items-center w-full top-4 text-3xl font-secondary mb-4 font-medium text-primary">Sales</h2>
+    <div class="absolute top-28 left-96 mt-7 h-auto w-8/12 p-5 overflow-hidden bg-gray-300  flex items-center justify-evenly rounded-xl">
+        <table class='table-auto w-full px-6'>
+            <tr class="text-left">
+                <th>S.N</th>
+                <th>Customer Name</th>
+                <th>Created By</th>
+                <th>Date Created</th>
+                <th>Total</th>
+                <th>Details</th>
+                {% if user.is_authenticated %}
+                <th>
+                    Edit
+                    {% if user.is_superuser %}
+                    /Delete
+                    {% endif %}
+                </th>
+                {% endif %}
+            </tr>
+            {% for invoice in invoices_dict  %}
+            <tr>
+                <td class="sn"></td>
+                <td>{{ invoice.customer_name}}</td>
+                <td>{{ invoice.created_by}}</td>
+                <td>{{ invoice.date_created}}</td>
+                <td>Rs.{{ invoice.total}}/-</td>
+                <td><a class="btn" href="{% url 'invoice_details' invoice.invoice_number%}">Details</a></td>
+                {% if user.is_authenticated %}
+                <td class="flex w-fit justify-between">
+                    <a class="btn " href="{% url 'addinvoiceitems' invoice.invoice_number %}"> <?xml version="1.0"?><svg fill="#fff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="16px" height="16px"><path d="M 22.828125 3 C 22.316375 3 21.804562 3.1954375 21.414062 3.5859375 L 19 6 L 24 11 L 26.414062 8.5859375 C 27.195062 7.8049375 27.195062 6.5388125 26.414062 5.7578125 L 24.242188 3.5859375 C 23.851688 3.1954375 23.339875 3 22.828125 3 z M 17 8 L 5.2597656 19.740234 C 5.2597656 19.740234 6.1775313 19.658 6.5195312 20 C 6.8615312 20.342 6.58 22.58 7 23 C 7.42 23.42 9.6438906 23.124359 9.9628906 23.443359 C 10.281891 23.762359 10.259766 24.740234 10.259766 24.740234 L 22 13 L 17 8 z M 4 23 L 3.0566406 25.671875 A 1 1 0 0 0 3 26 A 1 1 0 0 0 4 27 A 1 1 0 0 0 4.328125 26.943359 A 1 1 0 0 0 4.3378906 26.939453 L 4.3632812 26.931641 A 1 1 0 0 0 4.3691406 26.927734 L 7 26 L 5.5 24.5 L 4 23 z"/></svg></a>&ensp;
+                    {% if user.is_superuser %}
+                    <a class="btn " href="{% url 'deleteinvoice' invoice.invoice_number %}"> <svg fill="#ff0000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16px" height="16px"><path d="M 10.806641 2 C 10.289641 2 9.7956875 2.2043125 9.4296875 2.5703125 L 9 3 L 4 3 A 1.0001 1.0001 0 1 0 4 5 L 20 5 A 1.0001 1.0001 0 1 0 20 3 L 15 3 L 14.570312 2.5703125 C 14.205312 2.2043125 13.710359 2 13.193359 2 L 10.806641 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"/></svg></a>
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>  
+    </div>
+    {% else %}
+    <div class="absolute top-48 left-96  bg-gray-300 w-8/12 h-auto p-7 flex items-center justify-evenly  rounded-xl">
+        <p>Opps! No such product in Database.😫</p>
+        {% if user.is_authenticated %}
+        <div>
+            <a class="btn" href="{% url 'createproduct' %}">Add products</a>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+{% endblock content %}

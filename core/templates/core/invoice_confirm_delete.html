@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <header class="text-center pt-6 relative ">
-  <h1 class="text-3xl font-bold">Delete Product</h1>
+  <h1 class="text-3xl font-bold">Delete invoice</h1>
   <br />
 </header>
 <br />
@@ -10,18 +10,16 @@
   <div>
     <h2 class="font-bold text-2xl text-center">Confirm Deletion?</h2>
     <div class="m-4">
-    {% for p in product %}
     <form method="POST">
       {% csrf_token %}
       <fieldset>
-      <h2>Do you want to delete the product : <span class = "font-bold">{{ p.product_name}}</span> ?</h2>
+      <h2>Do you want to delete the invoice of customer : <span class = "font-bold">{{ invoice.customer_name}}</span> ?</h2>
       <div class = 'flex justify-evenly items-center mt-4'>
           <button type="submit" class="btn ">Yes</button>
-          <a class = "btn" href="{% url 'productslist' %}"> Cancel</a>
+          <a class = "btn" href="{% url 'sales' %}"> Cancel</a>
       </div>
     </fieldset>
     </form>
-    {% endfor %}
     </div>
   </div>
 </section>

@@ -1,0 +1,65 @@
+{% extends "core/base.html" %}
+{% block content %} 
+{% load static %}
+{% load crispy_forms_tags %}
+<section class="relative">
+    <div class="absolute top-10 left-5 w-fit h-fit flex flex-col bg-gray-300 ml-4 items-center justify-evenly p-8 rounded-xl flex-wrap" >
+        {{ form.management_form }}
+        {{ form.non_form_errors }}
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend class="font-bold text-xl">Add Items to Invoice</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <br>
+            <div class= "flex justify-evenly items-center mt-4">
+                <button class="btn" type="submit">ADD</button>
+            </div>
+        </form>
+    </div>
+    <h2 class="absolute grid place-items-center w-full top-4 text-3xl font-secondary mb-4 font-medium text-primary">Invoice</h2>
+    <div class="absolute top-24 left-96 text-primary">
+        <h2>Customer Name:<span class="font-bold"> {{invoice_dict.customer_name}}</span></h2>
+        <p>Date and Time: {{ invoice_dict.date_created }}</p>
+        <p>Issued by: {{ invoice_dict.created_by }}</p>
+    </div>
+    <div class="absolute top-28 right-48">
+        <a class="btn "href="{% url 'print_invoice' invoice_dict.invoice_number %}"> Print</a>
+    </div>
+    <div class="absolute top-48 left-96 mt-4 h-auto w-8/12 p-5 overflow-hidden bg-gray-300  flex items-center justify-evenly rounded-xl">
+        <table class='table-auto w-full px-6'>
+            <tr class="text-left">
+                <th >S.N</th>
+                <th>Items</th>
+                <th>Per Item Price (Rs.)</th>
+                <th>Quantity </th>
+                <th>Accmulated Price (Rs.) </th>
+                <th>Delete</th>
+            </tr>
+            {% for itr in invoice_items %}
+            <tr >
+                <td class="sn"></td>
+                <td>{{itr.product_name}}</td>
+                <td>{{itr.unit_price}}</td>
+                <td>{{itr.quantity}}</td>
+                <td>{{itr.accumulated}}</td>
+                <td class="flex w-fit justify-between">
+                    {% if user.is_authenticated %}
+                    <a class="btn " href="{% url 'deleteinvoiceitem' invoice_number=pk item_pk=itr.id %}"> <svg fill="#ff0000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="16px" height="16px"><path d="M 10.806641 2 C 10.289641 2 9.7956875 2.2043125 9.4296875 2.5703125 L 9 3 L 4 3 A 1.0001 1.0001 0 1 0 4 5 L 20 5 A 1.0001 1.0001 0 1 0 20 3 L 15 3 L 14.570312 2.5703125 C 14.205312 2.2043125 13.710359 2 13.193359 2 L 10.806641 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"/></svg></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr >
+                <td colspan="3"></td>
+                <td class="font-bold">Total Amount (Rs.):</td>
+                <td class="font-bold">{{invoice_dict.total}}</td>
+            </tr>
+        </table>
+    </div>
+</section> 
+
+{% endblock content %}
+
+

@@ -1,0 +1,52 @@
+{% extends "core/base.html" %}
+{% block content %} 
+{% load static %}
+<section>
+    <h2 class="absolute grid place-items-center w-full top-4 text-3xl font-secondary mb-4 font-medium text-primary">Invoice</h2>
+    {% if invoice_dict %}
+    <div class="absolute top-28 left-72 text-primary">
+        <h2>Customer Name:<span class="font-bold"> {{invoice_dict.customer_name}}</span></h2>
+        <p>Date and Time: {{ invoice_dict.date_created }}</p>
+        <p>Issued by: {{ invoice_dict.created_by }}</p>
+    </div>
+    <div class="absolute top-32 right-48">
+        <a class="btn " href="{% url 'sales' %}"> Return to Sales</a>
+        <a class="btn "href="{% url 'print_invoice' invoice_dict.invoice_number %}"> Print</a>
+    </div>
+    <div class="absolute top-48 left-72 mt-4 h-auto w-8/12 p-5 overflow-hidden bg-gray-300  flex items-center justify-evenly rounded-xl">
+        <table class='table-auto w-full px-6'>
+            <tr class="text-left">
+                <th >S.N</th>
+                <th>Items</th>
+                <th>Unit Price(Rs.)</th>
+                <th>Quantity </th>
+                <th>Accmulated Price (Rs.) </th>
+            </tr>
+            {% for itr in invoice_items %}
+            <tr >
+                <td class="sn"></td>
+                <td>{{itr.product_name}}</td>
+                <td>{{itr.unit_price}}</td>
+                <td>{{itr.quantity}}</td>
+                <td>{{itr.accumulated}}</td>
+            </tr>
+            {% endfor %}
+            <tr >
+                <td colspan="3"></td>
+                <td class="font-bold">Total Amount (Rs.):</td>
+                <td class="font-bold">{{invoice_dict.total}}</td>
+            </tr>
+        </table>
+    </div>
+    {% else %}
+    <h2>Opps! No invoices in Database.😫</h2>
+    <hr>
+    <div>
+    <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
+    </div>
+    {% endif %}
+</section> 
+
+{% endblock content %}
+
+

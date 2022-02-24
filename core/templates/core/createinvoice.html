@@ -1,7 +1,25 @@
 {% extends "core/base.html" %}
 {% block content %}
-
-CreateInvoice
+<header class="text-center pt-6 relative ">
+    <h1 class="text-3xl font-bold">Create Invoice</h1>
+    <br />
+</header>
+  <br />
+<section class="absolute top-48 ml-48 bg-gray-300 w-9/12 h-fit py-7 flex items-center justify-around rounded-xl">
+    <div>
+      <h2 class="font-bold text-2xl text-center">Add customer name </h2>
+      <div class="m-4">
+        <form method="POST">
+        {% csrf_token %}
+            <fieldset>
+                <label for="customer_name">Customer name</label>
+                <input type="text" class="text-field" name="customer_name" id="">
+            </fieldset>
+        <button type="submit" class="btn mt-5">Add</button>
+        </form>
+        </div>
+    </div>
+</section>
 
 
 {% endblock content %}

@@ -1,6 +1,20 @@
 import os,string,random
 from SalesManagementSystem.settings import MEDIA_ROOT
+from django.db import connection
 from PIL import Image
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a list of dicts"
@@ -31,12 +45,12 @@ def deletefile(path):
     else : print ( "File not found...")
 
 def control_datatype(stg):
-        "returns integer from string if exists else returns string"
-        clean = stg
-        try:
-            clean = int(stg.strip(string.ascii_letters))
-        finally:
-            return clean
+    "returns integer from string if exists else returns string"
+    clean = stg
+    try:
+        clean = int(stg.strip(string.ascii_letters))
+    finally:
+        return clean
         
 def filterupdates(request,instance,fields,dir):
     "returns tuple of filtered dict ,text_field_updated flag and file_field_updated flag. Takes request,instance,fields and file-upload directory,expected <format> fields = { 'normal_fields':['normal_field_names',],'file_fields':['file_field_names']} "
@@ -69,3 +83,15 @@ def filterupdates(request,instance,fields,dir):
     if updated_text_fields: text_updated_flag = True
     if updated_file_fields: file_updated_flag = True
     return (updated_dict,text_updated_flag,file_updated_flag)
+
+def getInvoiceDetails(pk,context):
+    invoice_dict = None
+    invoice_items = None
+    with connection.cursor() as cursor:
+        cursor.execute('select core_invoice.invoice_number,core_invoice.customer_name,core_invoice.date_created,core_invoice.total,auth_user.username as created_by from core_invoice inner join auth_user on core_invoice.created_by_id = auth_user.id where invoice_number = %s ',[int(pk)])
+        invoice_dict = dictfetchall(cursor)[0]
+    with connection.cursor() as cursor:
+        cursor.execute('select core_invoiceitem.id,core_product.product_name,core_product.unit_price,core_invoiceitem.quantity,core_invoiceitem.accumulated from ((core_invoice inner join core_invoiceitem on core_invoice.invoice_number=core_invoiceitem.invoice_id ) inner join core_product on core_invoiceitem.item_id = core_product.id) where invoice_number = %s ',[int(pk)])
+        invoice_items = dictfetchall(cursor)
+    context['invoice_dict'] = invoice_dict
+    context['invoice_items'] = invoice_items

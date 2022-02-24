@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    <style type="text/css">
+            @page {
+            size: A4;
+            margin: 1cm;
+        }
+        .addtoinvoice {
+            background: transparent;
+            background-color: transparent;
+            font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+            border: 1px solid #dddddd;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            flex-shrink: 2;
+            flex-direction: column;
+            width: auto;
+            height: auto;
+            border-radius: 15px;
+            background-color: white;
+            border: 1px solid #22222210;
+            }
+            table {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                font-family:"Montserrat", "Lato" ,"sans-serif";
+                border-collapse: collapse;
+                width: 100%;
+                z-index: 50px;
+                }
+
+            td,
+            th {
+                font-family: 'Montserrat';
+                border: 1px solid #064663;
+                border-collapse: collapse;
+                text-align: left;
+                padding: 8px;
+                }
+        </style>
+    </head>
+    <body>
+        <div class="addtoinvoice">
+            <div>
+                <h1>Invoice</h1>
+                <h2 >Customer Name : <span style= "color: #064663" >{{ invoice_dict.customer_name }}</span></h2>
+                <hr style="color: #064663 ; ">
+                <p>Date Created: {{ invoice_dict.date_created }}</p>
+                <p>Issued by: {{ invoice_dict.created_by }}</p>
+                <div class="table">
+                    <table >
+                        <tr style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ";>
+                          <th>Items</th>
+                          <th>Unit Price (Rs.)</th>
+                          <th>Quantity </th>
+                          <th>Accmulated Price (Rs.) </th>
+                        </tr>
+                        {% for itr in invoice_items %}
+                        <tr > 
+                            <td>{{itr.product_name}}</td>
+                            <td>{{itr.unit_price}}</td>
+                            <td>{{itr.quantity}} &emsp;
+                            </td>
+                            <td>{{itr.accumulated}}&emsp;
+                            </td>
+                        </tr>
+                        {% endfor %}
+                            <tr style=" font-weight:bold;">
+                                <td colspan="2"></td>
+                                <td >Total Amount (Rs.):</td>
+                                <td >{{ invoice_dict.total }}</td>
+                            </tr>
+                    </table>  
+                </div>
+            </div>   
+        </div>
+    </body>
+
+    <script>
+        let sn = document.querySelectorAll('.sn')
+        if (sn){
+            sn.forEach((elem,id)=>elem.innerHTML=`${id+1}`)
+        }
+    </script>
+</html>
