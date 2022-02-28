@@ -8,6 +8,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 
 def render_to_pdf(template_src, context_dict={}):
+    "renders html_template to pdf as HttpResponse given template_src and context_dict"
     template = get_template(template_src)
     html  = template.render(context_dict)
     result = BytesIO()
@@ -39,6 +40,7 @@ def savefile(file,dir):
     return filename
 
 def deletefile(path):
+    "deletes the file from given path."
     if os.path.isfile(path):
         os.remove(path)
         print(f'file deleted from {path}')
@@ -85,6 +87,7 @@ def filterupdates(request,instance,fields,dir):
     return (updated_dict,text_updated_flag,file_updated_flag)
 
 def getInvoiceDetails(pk,context):
+    "adds invoice details and invoice_items views to the context of particular pk"
     invoice_dict = None
     invoice_items = None
     with connection.cursor() as cursor:

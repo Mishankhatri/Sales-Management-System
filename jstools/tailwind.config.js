@@ -24,9 +24,6 @@ module.exports = {
           700:'#046832',
         },
         primary2:'#041C32',
-        secondary2:{
-
-        }
       },
       fontFamily:{
         body:['Nunito'],

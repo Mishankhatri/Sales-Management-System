@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 import os
 from SalesManagementSystem.settings import MEDIA_ROOT
 from .forms import InvoiceFormSet
-from .models import Invoice, Product
+from .models import Invoice
 from django.db import connection
 from django.http import HttpResponse
 from django.contrib import messages
@@ -122,8 +122,7 @@ def deleteproduct(request,pk):
         cursor.execute('select * from core_product where id = %s',[int(pk)])
         product = dictfetchall(cursor)
     product_name = product[0].get('product_name')
-    
-    
+
     if request.method == 'POST':
         with connection.cursor() as cursor:
             cursor.execute(' DELETE FROM core_product WHERE id = %s',[int(pk)])
@@ -132,16 +131,13 @@ def deleteproduct(request,pk):
         deletefile(path)
         messages.success(request, f'{ product_name } Deleted.')
         return redirect('products')
-        
+
     if request.method == 'GET':
         context= {
             'product' : product
         }
         return render(request,"core/product_confirm_delete.html",context)    
-    
-    
-    
-    
+
 @login_required
 def createinvoice(request):
     "create view for invoice."

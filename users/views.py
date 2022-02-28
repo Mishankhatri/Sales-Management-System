@@ -7,6 +7,7 @@ from .forms import UserRegisterForm, UserUpdateForm,ProfileUpdateForm
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def register(request):
+    "user registration view."
     if request.method == 'POST':
         r_form = UserRegisterForm(request.POST)
         p_form = ProfileUpdateForm(request.POST, request.FILES,instance=request.user.profile)
@@ -27,6 +28,7 @@ def register(request):
 
 @login_required
 def update_profile(request):
+    "update user's profile view."
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -48,4 +50,5 @@ def update_profile(request):
 
 @login_required
 def dashboard(request):
+    "dashboard view"
     return render(request, 'users/dashboard.html')
