@@ -9,7 +9,7 @@
         <p>Date and Time: {{ invoice_dict.date_created }}</p>
         <p>Issued by: {{ invoice_dict.created_by }}</p>
     </div>
-    <div class="absolute top-32 right-48">
+    <div class="absolute top-32 right-56">
         <a class="btn " href="{% url 'sales' %}"> Return to Sales</a>
         <a class="btn "href="{% url 'print_invoice' invoice_dict.invoice_number %}"> Print</a>
     </div>
