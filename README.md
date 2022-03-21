@@ -84,6 +84,7 @@ This is an admin based dbms web project developed for the management of the reco
     >For development environment:
     <br>
     In **SalesManagementSystem/settings.py** replace the following code snippet according to your mysql database.
+
     ```
     DATABASES = {
     'default': {
@@ -143,82 +144,82 @@ This is an admin based dbms web project developed for the management of the reco
 
  - Homepage 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\products.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\products.png" alt="#">
 </p>
 
  - Login 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\login.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\login.png" alt="#">
 </p>
 
  - Products-list 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\productlist.png" alt="productlist"></a>
+ <img width=auto height=auto src="media\previewpages\productlist.png" alt="productlist">
 </p>
 
  - Create Invoice 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\createinvoice1.png" alt="createinvoice"></a>
+ <img width=auto height=auto src="media\previewpages\createinvoice1.png" alt="createinvoice">
 </p>
 
  - Add Items to Invoice
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\additemstoinvoice.png" alt="additemstoinvoice"></a>
+ <img width=auto height=auto src="media\previewpages\additemstoinvoice.png" alt="additemstoinvoice">
 </p>
 
  - Print Invoice as Pdf 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\invoiceprint.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\invoiceprint.png" alt="#">
 </p>
 
  - Dashboard For Admin 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\dashboard(admin).png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\dashboard(admin).png" alt="#">
 </p>
 
  - Dashboard For Staff 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\dashboard(staff).png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\dashboard(staff).png" alt="#">
 </p>
 
  - Update Profile
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\updateprofile.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\updateprofile.png" alt="#">
 </p>
 
  - Add product to Database 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\addproduct.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\addproduct.png" alt="#">
 </p>
 
  - Delete product from Database 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\productdeletion.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\productdeletion.png" alt="#">
 </p>
 
  - Register New Staff (admin only view)
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\registerstaff.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\registerstaff.png" alt="#">
 </p>
 
  - Sales Admin View 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\sales.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\sales.png" alt="#">
 </p>
 
  - Staff Sales View 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\sales(staff).png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\sales(staff).png" alt="#">
 </p>
 
  - Particular Invoice Details
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\invoicedetails.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\invoicedetails.png" alt="#">
 </p>
 
  - Deletion of Invoice (admin only) 
 <p align="">
- <img width=auto height=auto src="media\PreviewPages\invoicedeletion.png" alt="#"></a>
+ <img width=auto height=auto src="media\previewpages\invoicedeletion.png" alt="#">
 </p>
 
 
