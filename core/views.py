@@ -17,15 +17,16 @@ def products(request):
     "retrieve view for products."
     q = request.GET.get('filter',None)
     products={}
+    #using django's model manager metod - raw()
     # if q is not None:
     #     products = Product.objects.raw('SELECT * FROM core_product WHERE unit_price<=%s and unit_price>0',[str(q)])
     # else:
     #     products = Product.objects.raw('SELECT * FROM core_product WHERE unit_price>0')
     with connection.cursor() as cursor:
         if q is not None:
-            cursor.execute('SELECT * FROM core_product WHERE unit_price<=%s and unit_price>0',[str(q)])
+            cursor.execute('SELECT * FROM core_product WHERE unit_price<=%s and unit_price>0 order by product_name',[str(q)])
         else:
-            cursor.execute('SELECT * FROM core_product WHERE unit_price>0')
+            cursor.execute('SELECT * FROM core_product WHERE unit_price>0 order by product_name')
         products = dictfetchall(cursor)
     context={
         'products':products,
@@ -40,9 +41,9 @@ def productslistView(request):
     with connection.cursor() as cursor:
         if q is not None:
             search = "%"+q+"%"
-            cursor.execute("""SELECT * FROM core_product WHERE lower(product_name) LIKE %s and product_name!="deleted product" """,[str(search)])
+            cursor.execute("""SELECT * FROM core_product WHERE lower(product_name) LIKE %s and product_name!="deleted product" order by product_name""",[str(search)])
         else:
-            cursor.execute('SELECT * FROM core_product WHERE unit_price>0')
+            cursor.execute('SELECT * FROM core_product WHERE unit_price>0 order by product_name')
         products = dictfetchall(cursor)
     context={
         'products':products,
@@ -161,14 +162,13 @@ def deleteinvoice(request,pk):
         cursor.execute('select * from core_invoice where invoice_number = %s',[int(pk)])
         invoice = dictfetchall(cursor)[0]
     customer_name = invoice.get('customer_name')
-    
-    
+
     if request.method == 'POST':
         with connection.cursor() as cursor:
             cursor.execute(' DELETE FROM core_invoice WHERE invoice_number = %s',[int(pk)])
         messages.success(request, f'Invoice for { customer_name } deleted.')
         return redirect('sales')
-        
+
     if request.method == 'GET':
         context= {
             'invoice' : invoice
@@ -225,7 +225,6 @@ def deleteinvoiceitem(request,item_pk,invoice_number):
             cursor.execute('update core_invoice set total = %s where invoice_number = %s',[int(total),int(invoice_number)])
         return redirect('addinvoiceitems',pk=invoice_number)
 
-
 @login_required
 def invoicedetail(request,pk):
     "detail view for invoice."
@@ -233,7 +232,7 @@ def invoicedetail(request,pk):
         context={}
         getInvoiceDetails(pk,context)
         return render(request,"core/invoicedetails.html",context)
-    
+
 @login_required
 def sales(request):
     "sales view for invoices."
@@ -246,12 +245,12 @@ def sales(request):
                 search = "%"+q+"%"
                 cursor.execute('select core_invoice.invoice_number,core_invoice.customer_name,core_invoice.date_created,core_invoice.total,auth_user.username as created_by from core_invoice inner join auth_user on core_invoice.created_by_id = auth_user.id WHERE core_invoice.customer_name LIKE %s ',[str(search)])
             else:
-                cursor.execute('select core_invoice.invoice_number,core_invoice.customer_name,core_invoice.date_created,core_invoice.total,auth_user.username as created_by from core_invoice inner join auth_user on core_invoice.created_by_id = auth_user.id')
+                cursor.execute('select core_invoice.invoice_number,core_invoice.customer_name,core_invoice.date_created,core_invoice.total,auth_user.username as created_by from core_invoice inner join auth_user on core_invoice.created_by_id = auth_user.id order by core_invoice.date_created desc ')
             invoices_dict = dictfetchall(cursor)
         context['invoices_dict']=invoices_dict
         context['q']=q
         return render(request,"core/sales.html",context)
-    
+
 @login_required
 def printinvoice(request,pk):
     "print invoice view for given pk."
