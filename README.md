@@ -184,7 +184,7 @@ This is an admin based dbms web project developed for the management of the reco
 
  - Update Profile
 <p align="">
- <img width=auto height=auto src="media\previewpages\updateprofile.png" alt="#">
+ <img width=auto height=auto src="media\previewpages\UpdateProfile.png" alt="#">
 </p>
 
  - Add product to Database 
