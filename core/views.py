@@ -87,7 +87,6 @@ def updateproduct(request,pk):
                     
         if file_field_updated_flag :
             for field,value in updated_file_fields.items():
-                print(field,value,type(value))
                 f = request.FILES.get(field)
                 filepath = 'products_pics/'+savefile(f,'products_pics')
                 query = f'UPDATE core_product SET {field} = %s WHERE id = {pk} '
@@ -192,7 +191,6 @@ def addinvoiceitems(request,pk):
         if form.is_valid():
             for data in form.cleaned_data:
                 if data:
-                    print(data)
                     cleaned_dict={}
                     item = data.get('item')
                     for k,v in data.items():
@@ -218,8 +216,6 @@ def addinvoiceitems(request,pk):
 def deleteinvoiceitem(request,item_pk,invoice_number):
     "delete view for invoiceitem for given pk and invoice_number."
     if request.method == 'GET':
-        print(invoice_number,'invoice_number')
-        print(item_pk,'pk')
         with connection.cursor() as cursor:
             cursor.execute('DELETE FROM core_invoiceitem WHERE id = %s',[int(item_pk)])
             messages.success(request, 'Item deleted.')
