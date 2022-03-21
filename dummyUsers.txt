@@ -1,0 +1,7 @@
+Admin User:
+    username: mishan
+    password: salessystem66
+
+Staff User:
+    username: shyam
+    password: salessystem66
